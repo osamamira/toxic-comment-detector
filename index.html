@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Toxic Comment Detector</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f0f0f0;
+            transition: background-color 0.5s ease;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            margin-top: 30px;
+        }
+
+        textarea {
+            width: 60%;
+            height: 100px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="submit"] {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 30px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .non-toxic {
+            color: green;
+            background-color: #e6ffe6;
+        }
+
+        .toxic {
+            color: red;
+            background-color: #ffe6e6;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body id="body">
+    <div class="container">
+        <h1>🚨 Toxic Comment Detector</h1>
+
+        <form method="post">
+            <label for="comment">Enter your comment:</label><br><br>
+            <textarea name="comment" rows="5" cols="60" placeholder="Write a comment here...">{{ comment }}</textarea><br><br>
+            <input type="submit" value="Check Toxicity">
+        </form>
+
+        {% if result %}
+            <div class="result {{ 'non-toxic' if result == '✅ Non-Toxic Comment' else 'toxic' }}" id="result-box">
+                {{ result }}
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        // تحديد النتيجة من الـ DOM
+        const resultBox = document.getElementById("result-box");
+        const body = document.getElementById("body");
+
+        if (resultBox) {
+            if (resultBox.classList.contains("non-toxic")) {
+                body.style.backgroundColor = "#e6ffe6"; // أخضر فاتح
+            } else {
+                body.style.backgroundColor = "#ffe6e6"; // أحمر فاتح
+            }
+        } else {
+            body.style.backgroundColor = "#f0f0f0";
+        }
+    </script>
+</body>
+</html>
